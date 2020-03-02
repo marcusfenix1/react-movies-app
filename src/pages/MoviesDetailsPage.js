@@ -4,12 +4,14 @@ import moviesApi from "../services/moviesApi";
 import routes from "../routes";
 
 export default class MoviesDetailsPage extends Component {
-  state = { movie: null };
+  state = {
+    movie: {}
+  };
 
   componentDidMount() {
     moviesApi
       .fetchMovieDetails(this.props.match.params.movieId)
-      .then(movie => this.setState({ movie }));
+      .then(movieDetails => this.setState({ movie: movieDetails }));
   }
 
   handleGoBack = () => {
@@ -35,7 +37,7 @@ export default class MoviesDetailsPage extends Component {
           src={`https://image.tmdb.org/t/p/w500/${this.state.movie.poster_path}`}
           alt={this.state.movie.original_title}
         />
-        <h1>{this.state.show.name}</h1>
+        <h1>{this.state.movie.original_title}</h1>
       </>
     );
   }
