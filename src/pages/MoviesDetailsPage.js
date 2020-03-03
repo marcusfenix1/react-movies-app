@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import moviesApi from "../services/moviesApi";
 import routes from "../routes";
 import styled from "styled-components";
+import CastWithRouter from "../components/Cast";
+// import { withRouter } from "react-router-dom";
 
 const StyledMoviePoster = styled.img`
   max-width: 200px;
@@ -61,6 +63,7 @@ export default class MoviesDetailsPage extends Component {
         {this.state.movie !== null && (
           <>
             <StyledMoviePoster
+              //TODO: Проверить ссылку  на img
               src={`https://image.tmdb.org/t/p/w200${this.state.movie.poster_path}`}
               alt={this.state.movie.original_title}
             />
@@ -76,9 +79,15 @@ export default class MoviesDetailsPage extends Component {
                 ))}
               </div>
             </div>
+            <div>
+              <h3>Additional information</h3>
+            </div>
+            <CastWithRouter />
           </>
         )}
       </>
     );
   }
 }
+
+// const MoviesDetailsPageWithRouter = withRouter(MoviesDetailsPage);

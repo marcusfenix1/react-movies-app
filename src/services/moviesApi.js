@@ -37,9 +37,18 @@ const fetchTrendingMovies = () => {
     .then(response => response.data.results);
 };
 
+const fetchCastInfo = movieId => {
+  const requestParams = `movie/${movieId}/credits?api_key=${apiKey}`;
+
+  return axios
+    .get(baseUrl + requestParams)
+    .then(response => response.data.cast);
+};
+
 export default {
   fetchTrendingMovies,
-  fetchMovieDetails
+  fetchMovieDetails,
+  fetchCastInfo
 };
 
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=628d6a5d740bdc44977e233b871867be
