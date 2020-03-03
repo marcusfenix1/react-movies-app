@@ -2,16 +2,35 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moviesApi from "../services/moviesApi";
 import routes from "../routes";
+import styled from "styled-components";
+
+const StyledMoviePoster = styled.img`
+  max-width: 200px;
+  min-height: 300px;
+`;
+
+//TODO: Подправить стили
+const StyledGenreText = styled.span`
+  margin-left: 15px;
+`;
+
+//TODO: Подправить стили
+const StyledOveriewText = styled.span`
+  display: block;
+  margin-bottom: 30px;
+`;
 
 export default class MoviesDetailsPage extends Component {
-  state = {
-    movie: {}
-  };
+  state = { movie: null };
 
   componentDidMount() {
     moviesApi
       .fetchMovieDetails(this.props.match.params.movieId)
       .then(movieDetails => this.setState({ movie: movieDetails }));
+
+    // const { genres } = this.state.movie;
+
+    // console.log(genres);
   }
 
   handleGoBack = () => {
@@ -24,7 +43,13 @@ export default class MoviesDetailsPage extends Component {
     this.props.history.push(routes.movies);
   };
 
+  //TODO: Деструктуризировать state
+
+  //TODO: Пересмотреть разметку
+
   render() {
+    // const { genres } = this.state.movie;
+
     return (
       <>
         <button type="button" onClick={this.handleGoBack}>
@@ -33,11 +58,26 @@ export default class MoviesDetailsPage extends Component {
 
         <br />
 
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${this.state.movie.poster_path}`}
-          alt={this.state.movie.original_title}
-        />
-        <h1>{this.state.movie.original_title}</h1>
+        {this.state.movie !== null && (
+          <>
+            <StyledMoviePoster
+              src={`https://image.tmdb.org/t/p/w200${this.state.movie.poster_path}`}
+              alt={this.state.movie.original_title}
+            />
+            <div>
+              <h1>{this.state.movie.original_title}</h1>
+              <span>User score: {this.state.movie.vote_average}</span>
+              <h2>Overview:</h2>
+              <StyledOveriewText>{this.state.movie.overview}</StyledOveriewText>
+              <h3>Genres</h3>
+              <div>
+                {this.state.movie.genres.map(genre => (
+                  <StyledGenreText key={genre.id}>{genre.name}</StyledGenreText>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </>
     );
   }

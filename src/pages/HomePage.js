@@ -20,8 +20,7 @@ export default class HomePage extends Component {
   render() {
     const { movies } = this.state;
     const { match } = this.props;
-    // console.log(this.props);
-    console.log(match);
+
     return (
       <>
         <h1>Trending today</h1>
