@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, Switch, Route } from "react-router-dom";
 import moviesApi from "../services/moviesApi";
 import routes from "../routes";
 import styled from "styled-components";
@@ -53,6 +53,8 @@ export default class MoviesDetailsPage extends Component {
 
   //TODO: Отрефакторить
 
+  //TODO Повторное нажатие Navlink сворачивает информацию??
+
   render() {
     // const { genres } = this.state.movie;
 
@@ -85,9 +87,44 @@ export default class MoviesDetailsPage extends Component {
             </div>
             <div>
               <h3>Additional information</h3>
+              <ul>
+                <li>
+                  <NavLink
+                    to={{
+                      pathname: `${this.props.match.url}/cast`
+                      // state: { ...this.props.location.state }
+                    }}
+                  >
+                    Cast
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={{
+                      pathname: `${this.props.match.url}/reviews`
+                      // state: { ...this.props.location.state }
+                    }}
+                  >
+                    Reviews
+                  </NavLink>
+                </li>
+              </ul>
             </div>
-            <CastWithRouter />
-            <ReviewsWithRouter />
+
+            <Switch>
+              <Route
+                path={`${this.props.match.path}/reviews`}
+                exact
+                component={ReviewsWithRouter}
+              />
+              <Route
+                path={`${this.props.match.path}/cast`}
+                exact
+                component={CastWithRouter}
+              />
+            </Switch>
+            {/* <CastWithRouter /> */}
+            {/* <ReviewsWithRouter /> */}
           </>
         )}
       </>

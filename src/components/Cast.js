@@ -19,18 +19,18 @@ class Cast extends Component {
   //TODO Добавить placeholder для image
   render() {
     return (
-      <>
+      <ul>
         {this.state.casts.map(castPerson => (
-          <div key={castPerson.cast_id}>
+          <li key={castPerson.cast_id}>
             <img
               src={`https://image.tmdb.org/t/p/w200${castPerson.profile_path}`}
               alt={castPerson.name}
             />
             <span>{castPerson.name}</span>
             <span>Character: {castPerson.character}</span>
-          </div>
+          </li>
         ))}
-      </>
+      </ul>
     );
   }
 }
