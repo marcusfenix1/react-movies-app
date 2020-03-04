@@ -4,6 +4,8 @@ import moviesApi from "../services/moviesApi";
 import routes from "../routes";
 import styled from "styled-components";
 import CastWithRouter from "../components/Cast";
+import ReviewsWithRouter from "../components/Reviews";
+
 // import { withRouter } from "react-router-dom";
 
 const StyledMoviePoster = styled.img`
@@ -49,6 +51,8 @@ export default class MoviesDetailsPage extends Component {
 
   //TODO: Пересмотреть разметку
 
+  //TODO: Отрефакторить
+
   render() {
     // const { genres } = this.state.movie;
 
@@ -83,6 +87,7 @@ export default class MoviesDetailsPage extends Component {
               <h3>Additional information</h3>
             </div>
             <CastWithRouter />
+            <ReviewsWithRouter />
           </>
         )}
       </>

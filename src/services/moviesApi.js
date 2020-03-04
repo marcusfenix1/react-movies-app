@@ -45,10 +45,19 @@ const fetchCastInfo = movieId => {
     .then(response => response.data.cast);
 };
 
+const fetchReviews = movieId => {
+  const requestParams = `movie/${movieId}/reviews?api_key=${apiKey}&language=en-US`;
+
+  return axios
+    .get(baseUrl + requestParams)
+    .then(response => response.data.results);
+};
+
 export default {
   fetchTrendingMovies,
   fetchMovieDetails,
-  fetchCastInfo
+  fetchCastInfo,
+  fetchReviews
 };
 
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=628d6a5d740bdc44977e233b871867be

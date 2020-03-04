@@ -7,28 +7,7 @@ import { withRouter } from "react-router-dom";
 //TODO: изменить пустой объект на null
 class Cast extends Component {
   state = {
-    casts: [
-      //   {
-      //     cast_id: 55,
-      //     character: "Tony Stark / Iron Man",
-      //     credit_id: "58700eee9251412ae400238b",
-      //     gender: 2,
-      //     id: 3223,
-      //     name: "Robert Downey Jr.",
-      //     order: 0,
-      //     profile_path: "/1YjdSym1jTG7xjHSI0yGGWEsw5i.jpg"
-      //   },
-      //   {
-      //     cast_id: 22,
-      //     character: "Steve Rogers / Captain America",
-      //     credit_id: "585d55afc3a368408600c438",
-      //     gender: 2,
-      //     id: 16828,
-      //     name: "Chris Evans",
-      //     order: 1,
-      //     profile_path: "/7dUkkq1lK593XvOjunlUB11lKm1.jpg"
-      //   }
-    ]
+    casts: []
   };
 
   componentDidMount = () => {
@@ -37,6 +16,7 @@ class Cast extends Component {
       .then(casts => this.setState({ casts }));
   };
 
+  //TODO Добавить placeholder для image
   render() {
     return (
       <>
@@ -56,26 +36,3 @@ class Cast extends Component {
 }
 
 export default withRouter(Cast);
-
-// {"id": 299534,
-//   "cast": [
-//     {
-//       "cast_id": 55,
-//       "character": "Tony Stark / Iron Man",
-//       "credit_id": "58700eee9251412ae400238b",
-//       "gender": 2,
-//       "id": 3223,
-//       "name": "Robert Downey Jr.",
-//       "order": 0,
-//       "profile_path": "/1YjdSym1jTG7xjHSI0yGGWEsw5i.jpg"
-//     },
-//     {
-//       "cast_id": 22,
-//       "character": "Steve Rogers / Captain America",
-//       "credit_id": "585d55afc3a368408600c438",
-//       "gender": 2,
-//       "id": 16828,
-//       "name": "Chris Evans",
-//       "order": 1,
-//       "profile_path": "/7dUkkq1lK593XvOjunlUB11lKm1.jpg"
-//     }}
