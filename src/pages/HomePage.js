@@ -17,6 +17,7 @@ export default class HomePage extends Component {
     moviesApi.fetchTrendingMovies().then(movies => this.setState({ movies }));
   };
 
+  //TODO ul выделить в компонент, прокинуть пропы через withRouter
   render() {
     const { movies } = this.state;
     const { match } = this.props;

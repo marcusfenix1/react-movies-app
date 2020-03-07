@@ -21,12 +21,16 @@ class Reviews extends Component {
   render() {
     return (
       <ul>
-        {this.state.reviews.map(review => (
-          <li key={review.id}>
-            <p>Author: {review.author}</p>
-            <span>{review.content}</span>
-          </li>
-        ))}
+        {this.state.reviews.length > 0 ? (
+          this.state.reviews.map(review => (
+            <li key={review.id}>
+              <p>Author: {review.author}</p>
+              <span>{review.content}</span>
+            </li>
+          ))
+        ) : (
+          <span>We don`t have any reviews for this movie</span>
+        )}
       </ul>
     );
   }

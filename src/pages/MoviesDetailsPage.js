@@ -55,6 +55,8 @@ export default class MoviesDetailsPage extends Component {
 
   //TODO Повторное нажатие Navlink сворачивает информацию??
 
+  //TODO: Если нет fetchreviews, то вывести предупреждение
+
   render() {
     // const { genres } = this.state.movie;
 
@@ -69,7 +71,7 @@ export default class MoviesDetailsPage extends Component {
         {this.state.movie !== null && (
           <>
             <StyledMoviePoster
-              //TODO: Проверить ссылку  на img
+              //TODO: Проверить ссылку  на наличие img
               src={`https://image.tmdb.org/t/p/w200${this.state.movie.poster_path}`}
               alt={this.state.movie.original_title}
             />
