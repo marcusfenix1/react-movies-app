@@ -14,25 +14,12 @@ const fetchMovieDetails = async movieId => {
   }
 };
 
-// const fetchMovieDetails = movieId => {
-//   const requestParams = `movie/${movieId}?api_key=${apiKey}`;
-//   return axios.get(baseUrl + requestParams).then(response => response.data);
-// };
-
-// const fetchMovieDetails = movieId => {
-//   const requestParams = `movie/${movieId}?api_key=${apiKey}`;
-//   return fetch(baseUrl + requestParams).then(res => res.json());
-// };
-
 const fetchMoviesWithQuery = searchQuery => {
   const requestParams = `search/movie?api_key=${apiKey}&language=en-US&query=${searchQuery}&page=1&include_adult=false`;
 
   return axios
     .get(baseUrl + requestParams)
     .then(response => response.data.results);
-  // return fetch(baseUrl + requestParams)
-  //   .then(res => res.json())
-  //   .then(entries => entries.map(entry => entry.show));
 };
 
 const fetchTrendingMovies = () => {
@@ -49,14 +36,6 @@ const fetchCastInfo = movieId => {
     .get(baseUrl + requestParams)
     .then(response => response.data.cast);
 };
-
-// const fetchReviews = movieId => {
-//   const requestParams = `movie/${movieId}/reviews?api_key=${apiKey}&language=en-US`;
-
-//   return axios
-//     .get(baseUrl + requestParams)
-//     .then(response => response.data.results);
-// };
 
 const fetchReviews = async movieId => {
   const requestParams = `movie/${movieId}/reviews?api_key=${apiKey}&language=en-US`;
@@ -76,5 +55,3 @@ export default {
   fetchReviews,
   fetchMoviesWithQuery
 };
-
-// https://api.themoviedb.org/3/movie/{movie_id}?api_key=628d6a5d740bdc44977e233b871867be

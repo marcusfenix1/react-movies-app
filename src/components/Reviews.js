@@ -1,39 +1,52 @@
 import React, { Component } from "react";
 import moviesApi from "../services/moviesApi";
-import routes from "../routes";
 import styled from "styled-components";
-import { withRouter } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
+const StyledAuthor = styled.p`
+  font-weight: bold;
+  text-decoration: underline;
+`;
+
+const StyledReviewContent = styled.span`
+  font-style: italic;
+`;
 class Reviews extends Component {
   state = {
-    reviews: []
+    reviews: [],
+    isLoading: false
   };
 
   componentDidMount = () => {
+    this.setState({ isLoading: true });
+
     moviesApi
       .fetchReviews(this.props.match.params.movieId)
-      .then(reviews => this.setState({ reviews }));
+      .then(reviews => this.setState({ reviews }))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
-  //TODO Fix HTML
-  //TODO Add styles
-  //TODO Add placehoder for IMG
   render() {
+    const { reviews, isLoading } = this.state;
+
     return (
-      <ul>
-        {this.state.reviews.length > 0 ? (
-          this.state.reviews.map(review => (
-            <li key={review.id}>
-              <p>Author: {review.author}</p>
-              <span>{review.content}</span>
-            </li>
-          ))
+      <div>
+        {isLoading && <Spinner />}
+        {reviews.length > 0 ? (
+          <ul>
+            {reviews.map(review => (
+              <li key={review.id}>
+                <StyledAuthor>Author: {review.author}</StyledAuthor>
+                <StyledReviewContent>{review.content}</StyledReviewContent>
+              </li>
+            ))}
+          </ul>
         ) : (
-          <span>We don`t have any reviews for this movie</span>
+          <p>We don`t have any reviews for this movie</p>
         )}
-      </ul>
+      </div>
     );
   }
 }
 
-export default withRouter(Reviews);
+export default Reviews;

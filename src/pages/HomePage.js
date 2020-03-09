@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import moviesApi from "../services/moviesApi";
-import { withRouter } from "react-router-dom";
-import routes from "../routes";
+import MoviesList from "../components/MoviesList";
 
 export default class HomePage extends Component {
   state = {
@@ -17,28 +15,13 @@ export default class HomePage extends Component {
     moviesApi.fetchTrendingMovies().then(movies => this.setState({ movies }));
   };
 
-  //TODO ul выделить в компонент, прокинуть пропы через withRouter
   render() {
     const { movies } = this.state;
-    const { match } = this.props;
 
     return (
       <>
         <h1>Trending today</h1>
-        <ul>
-          {movies.map(movie => (
-            <li key={movie.id}>
-              <Link
-                to={{
-                  pathname: `${routes.movies}/${movie.id}`,
-                  state: { from: this.props.location }
-                }}
-              >
-                {movie.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <MoviesList movies={movies} />
       </>
     );
   }

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import getQueryParams from "../utils/getQueryParams";
 import Searchmovie from "../components/Searchmovie";
 import moviesApi from "../services/moviesApi";
-import routes from "../routes";
+import MoviesList from "../components/MoviesList";
 
 export default class MoviesPage extends Component {
   state = {
@@ -16,8 +15,6 @@ export default class MoviesPage extends Component {
     if (query) {
       this.fetchMovies(query);
     }
-
-    console.log("Component did mount ", query);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -27,16 +24,12 @@ export default class MoviesPage extends Component {
     if (prevQuery !== nextQuery) {
       this.fetchMovies(nextQuery);
     }
-
-    console.log(this.state.movies);
   }
 
   fetchMovies = query => {
     moviesApi
       .fetchMoviesWithQuery(query)
       .then(movies => this.setState({ movies }));
-
-    console.log(this.state.movies);
   };
 
   handleChangeQuery = query => {
@@ -46,55 +39,13 @@ export default class MoviesPage extends Component {
     });
   };
 
-  //TODO ul выделить в компонент, прокинуть пропы через withRouter
   render() {
     const { movies } = this.state;
-    // const { match } = this.props;
-
     return (
       <>
         <Searchmovie onSubmit={this.handleChangeQuery} />
-        {this.state.movies.length > 0 && (
-          <ul>
-            {movies.map(movie => (
-              <li key={movie.id}>
-                <Link
-                  to={{
-                    pathname: `${routes.movies}/${movie.id}`,
-                    state: { from: this.props.location }
-                  }}
-                >
-                  {movie.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        {movies.length > 0 && <MoviesList movies={movies} />}
       </>
     );
   }
 }
-
-// return (
-//   <>
-//     <Searchmovie onSubmit={this.handleChangeQuery} />
-
-//     {this.state.movies.length > 0 && (
-//       <ul>
-//         {this.state.movies.map(movie => (
-//           <li key={movie.id}>
-//             <Link
-//               to={{
-//                 pathname: `${routes.movies}/${movie.id}`,
-//                 state: { from: this.props.location }
-//               }}
-//             >
-//               {movie.name}
-//             </Link>
-//           </li>
-//         ))}
-//       </ul>
-//     )}
-//   </>
-// );
-// }
