@@ -24,9 +24,11 @@ const StyledNavListItem = styled.li`
 const StyledNavLink = styled(NavLink)`
   border: solid 3px;
   border-radius: 9px;
+  border-color: gray;
+  background-color: darkgray;
   display: block;
   width: 100px;
-  color: black;
+  color: white;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;

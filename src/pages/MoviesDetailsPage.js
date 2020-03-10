@@ -10,15 +10,16 @@ import MovieAdditionalInfo from "../components/MovieAdditionalInfo";
 const StyledButton = styled.button`
   border: solid 3px;
   border-radius: 9px;
+  border-color: gray;
+  background-color: darkgray;
   display: block;
-  padding: 3px 0px;
-  margin-bottom: 15px;
   width: 100px;
-  color: black;
+  color: white;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
+  margin-bottom: 30px;
 
   &:hover {
     color: royalblue;
