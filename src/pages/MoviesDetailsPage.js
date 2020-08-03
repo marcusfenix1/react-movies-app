@@ -8,21 +8,16 @@ import ReviewsWithRouter from "../components/Reviews";
 import MovieAdditionalInfo from "../components/MovieAdditionalInfo";
 
 const StyledButton = styled.button`
-  border: solid 3px;
-  border-radius: 9px;
-  border-color: gray;
-  background-color: darkgray;
+  margin-bottom: 25px;
+  border: none;
+  background-color: #3f51b5;
   display: block;
   width: 100px;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
-  font-weight: 600;
-  margin-bottom: 30px;
-
-  &:hover {
-    color: royalblue;
+  font-weight: 400;
   }
 `;
 
@@ -45,7 +40,7 @@ export default class MoviesDetailsPage extends Component {
   componentDidMount() {
     moviesApi
       .fetchMovieDetails(this.props.match.params.movieId)
-      .then(movieDetails => this.setState({ movie: movieDetails }));
+      .then((movieDetails) => this.setState({ movie: movieDetails }));
   }
 
   handleGoBack = () => {
@@ -88,7 +83,7 @@ export default class MoviesDetailsPage extends Component {
               <StyledOveriewText>{movie.overview}</StyledOveriewText>
               <h3>Genres</h3>
               <div>
-                {movie.genres.map(genre => (
+                {movie.genres.map((genre) => (
                   <StyledGenreText key={genre.id}>
                     #{genre.name}
                   </StyledGenreText>
@@ -96,7 +91,6 @@ export default class MoviesDetailsPage extends Component {
               </div>
             </div>
             <MovieAdditionalInfo />
-
             <Switch>
               <Route
                 path={`${match.path}/reviews`}

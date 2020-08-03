@@ -23,7 +23,7 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   text-transform: uppercase;
   &:hover {
-    color: red;
+    color: orange;
   }
 `;
 

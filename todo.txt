@@ -1,0 +1,3 @@
+TODO: make review text limitation
+TODO: make autoscroll in additional information
+TODO: make notification in moviesearch ("no found movie")

@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 const StyledCastList = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 `;
 
@@ -29,25 +29,33 @@ const StyledCastText = styled.span`
 class Cast extends Component {
   state = {
     casts: [],
-    isLoaded: false
+    isLoaded: false,
   };
 
-  componentDidMount = () => {
+  myRef = React.createRef();
+
+  scrollToRef = () => {
+    this.myRef.current.scrollIntoView();
+  };
+
+  componentDidMount = async () => {
     this.setState({ isLoaded: true });
 
-    moviesApi
+    await moviesApi
       .fetchCastInfo(this.props.match.params.movieId)
-      .then(casts => this.setState({ casts }))
+      .then((casts) => this.setState({ casts }))
       .finally(() => this.setState({ isLoaded: false }));
+
+    this.scrollToRef();
   };
 
   render() {
     const { isLoaded, casts } = this.state;
     return (
-      <>
+      <div>
         {isLoaded && <Spinner />}
-        <StyledCastList>
-          {casts.map(castPerson => (
+        <StyledCastList ref={this.myRef}>
+          {casts.map((castPerson) => (
             <StyledCastListItem key={castPerson.cast_id}>
               {castPerson.profile_path ? (
                 <StyledCastImg
@@ -68,7 +76,7 @@ class Cast extends Component {
             </StyledCastListItem>
           ))}
         </StyledCastList>
-      </>
+      </div>
     );
   }
 }

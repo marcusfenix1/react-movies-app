@@ -1,29 +1,31 @@
 import React, { Component } from "react";
 import moviesApi from "../services/moviesApi";
-import styled from "styled-components";
 import Spinner from "../components/Spinner";
+import ReviewsItem from "../components/ReviewsItem";
 
-const StyledAuthor = styled.p`
-  font-weight: bold;
-  text-decoration: underline;
-`;
-
-const StyledReviewContent = styled.span`
-  font-style: italic;
-`;
 class Reviews extends Component {
   state = {
     reviews: [],
-    isLoading: false
+    isLoading: false,
   };
 
-  componentDidMount = () => {
+  myRef = React.createRef();
+
+  scrollToRef = () => {
+    this.myRef.current.scrollIntoView();
+  };
+
+  componentDidMount = async () => {
     this.setState({ isLoading: true });
 
-    moviesApi
+    await moviesApi
       .fetchReviews(this.props.match.params.movieId)
-      .then(reviews => this.setState({ reviews }))
+      .then((reviews) => this.setState({ reviews }))
       .finally(() => this.setState({ isLoading: false }));
+
+    if (this.state.reviews.length > 0) {
+      this.scrollToRef();
+    }
   };
 
   render() {
@@ -33,12 +35,13 @@ class Reviews extends Component {
       <div>
         {isLoading && <Spinner />}
         {reviews.length > 0 ? (
-          <ul>
-            {reviews.map(review => (
-              <li key={review.id}>
-                <StyledAuthor>Author: {review.author}</StyledAuthor>
-                <StyledReviewContent>{review.content}</StyledReviewContent>
-              </li>
+          <ul ref={this.myRef}>
+            {reviews.map((review) => (
+              <ReviewsItem
+                key={review.id}
+                author={review.author}
+                content={review.content}
+              />
             ))}
           </ul>
         ) : (

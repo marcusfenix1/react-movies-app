@@ -27,34 +27,33 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
-  border: solid 3px;
-  border-radius: 9px;
-  border-color: gray;
-  background-color: darkgray;
+  border: none;
+  background-color: #3f51b5;
   display: block;
   width: 100px;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
-  font-weight: 600;
-  width: 15%;
+  font-weight: 400;
 
   &:hover {
-    color: royalblue;
+    transition-duration: 0.25s;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   }
 `;
 
 export default class Searchmovie extends Component {
   state = { value: "" };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      value: e.target.value
+      value: e.target.value,
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     this.props.onSubmit(this.state.value);

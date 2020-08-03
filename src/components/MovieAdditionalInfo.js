@@ -3,14 +3,11 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
-const StyledContainer = styled.div`
-  margin-bottom: 30px;
-`;
-
 const StyledNavList = styled.ul`
   display: flex;
   flex-direction: row;
   padding-left: 15px;
+  margin-bottom: 30px;
 `;
 
 const StyledNavListItem = styled.li`
@@ -22,37 +19,46 @@ const StyledNavListItem = styled.li`
 `;
 
 const StyledNavLink = styled(NavLink)`
-  border: solid 3px;
-  border-radius: 9px;
-  border-color: gray;
-  background-color: darkgray;
+  border: none;
+  background-color: #3f51b5;
   display: block;
   width: 100px;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
 
   &:hover {
-    color: royalblue;
+    transition-duration: 0.25s;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   }
 `;
 
+//TODO refactor "scrollToRef" without settimeout
 class MovieAdditionalInfo extends Component {
+  myRef = React.createRef();
+
+  scrollToRef = () => {
+    this.myRef.current.scrollIntoView();
+  };
+
   render() {
     const { location, match } = this.props;
 
     return (
-      <StyledContainer>
+      <>
         <h3>Additional information</h3>
         <StyledNavList>
           <StyledNavListItem>
             <StyledNavLink
               to={{
                 pathname: `${match.url}/cast`,
-                state: { ...location.state }
+                state: { ...location.state },
               }}
+              ref={this.myRef}
+              onClick={this.scrollToRef}
             >
               Cast
             </StyledNavLink>
@@ -61,14 +67,16 @@ class MovieAdditionalInfo extends Component {
             <StyledNavLink
               to={{
                 pathname: `${match.url}/reviews`,
-                state: { ...location.state }
+                state: { ...location.state },
               }}
+              ref={this.myRef}
+              onClick={this.scrollToRef}
             >
               Reviews
             </StyledNavLink>
           </StyledNavListItem>
         </StyledNavList>
-      </StyledContainer>
+      </>
     );
   }
 }
